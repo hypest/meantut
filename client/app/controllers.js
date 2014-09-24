@@ -1,14 +1,15 @@
-angular.module("myApp.controllers", []).controller("songCtrl", function($scope, songService) {
-    $scope.songs = songService.get();
-                    
-    $scope.newSong = { };
+angular.module("myApp.controllers", []).controller("songCtrl", function($scope, Song) {
+    $scope.songs = Song.query();
 
     $scope.addSong = function(artist, title) {
-        $scope.songs.push({
-            artist: artist,
-            title: title,
-            score: 0
+        var song = new Song();
+        song.artist = artist;
+        song.title = title;
+        song.score = 0;
+        song.$save(function(response) {
+            $scope.songs.push(response);
         });
+
         $scope.newSong.artist = "";
         $scope.newSong.title = "";
     };
@@ -18,15 +19,11 @@ angular.module("myApp.controllers", []).controller("songCtrl", function($scope, 
         if (idx >= 0) {
             $scope.songs.splice(idx, 1);
         }
+
+        song.$remove();
     };
 
     $scope.isEmpty = function(str) {
         return _.isBlank(str);
     };
-
-    $scope.$watch('songs', function(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            songService.put($scope.songs);
-        }
-    }, true);
 });
