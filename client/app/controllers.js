@@ -23,6 +23,10 @@ angular.module("myApp.controllers", []).controller("songCtrl", function($scope, 
         song.$remove();
     };
 
+    $scope.updateSong = function(song) {
+        song.$update();
+    };
+
     $scope.isEmpty = function(str) {
         return _.isBlank(str);
     };

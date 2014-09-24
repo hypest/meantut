@@ -4,7 +4,8 @@ angular.module("myApp.directives", []). directive("rating", function() {
 
   directive.scope = {
     score: '=score',
-    max: '=max'
+    max: '=max',
+    update: '&update'
   };
 
   directive.templateUrl = 'app/templates/rating.html';
@@ -38,6 +39,7 @@ angular.module("myApp.directives", []). directive("rating", function() {
     scope.$watch('score', function(newValue, oldValue) {
       if (newValue !== null && newValue !== undefined) {
         scope.updateStars();
+        scope.update();
       }
     }, true);
   };

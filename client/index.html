@@ -30,7 +30,7 @@
                 <strong>{{song.artist | titleize}}</strong><br/>
                 <small>{{song.title | titleize}}</small>
               </div>
-              <div rating score="song.score" max="5" class="pull-left"></div>
+              <div rating score="song.score" max="5" class="pull-left" update="updateSong(song)"></div>
               <div class="pull-right">
                 <button type="button" class="btn btn-danger pull-right" ng-click="deleteSong(song)">
                   <i class="fa fa-trash-o"></i>
